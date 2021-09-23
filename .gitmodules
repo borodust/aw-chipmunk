@@ -1,0 +1,3 @@
+[submodule "src/lib/chipmunk"]
+	path = src/lib/chipmunk
+	url = https://github.com/borodust/Chipmunk2D
