@@ -3,6 +3,7 @@
 WORK_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 LIBRARY_DIR=$WORK_DIR/chipmunk/
+BUILD_TYPE=MinSizeRel
 
 REST_ARGS=
 while [[ $# -gt 0 ]]
@@ -53,12 +54,15 @@ function build_android {
     esac
 
     mkdir -p $BUILD_DIR && cd $BUILD_DIR
-    cmake -DCLAW_ANDROID_BUILD=ON \
+    cmake -DCMAKE_BUILD_TYPE="$BUILD_TYPE" \
           -DANDROID_ABI=$ANDROID_ABI \
+          -DANDROID_PLATFORM=23 \
           -DANDROID_ARM_NEON=ON \
           -DCMAKE_TOOLCHAIN_FILE="$NDK/build/cmake/android.toolchain.cmake" \
+          -DBUILD_SHARED=OFF \
+          -DBUILD_STATIC=ON \
           $WORK_DIR
-    cmake --build . --config MinSizeRel
+    cmake --build . --config "$BUILD_TYPE"
 }
 
 function build_desktop {
@@ -66,11 +70,10 @@ function build_desktop {
     cmake -DCMAKE_C_COMPILER=clang \
           -DCMAKE_CXX_COMPILER=clang++ \
           -DBUILD_DEMOS=OFF \
-          -DBUILD_SHARED=ON \
-          -DBUILD_STATIC=OFF \
+          -DBUILD_SHARED=OFF \
+          -DBUILD_STATIC=ON \
           $WORK_DIR
-    cmake --build . --config MinSizeRel
-    cp -L $BUILD_DIR/chipmunk/src/libchipmunk.so.7 $BUILD_DIR
+    cmake --build . --config "$BUILD_TYPE"
 }
 
 

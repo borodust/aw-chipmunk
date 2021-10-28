@@ -4,6 +4,7 @@ project(chipmunk.clawed)
 set(LIBRARY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/chipmunk)
 set(TARGET chipmunk.clawed)
 
+# setup rpath
 set(CMAKE_SKIP_BUILD_RPATH FALSE)
 set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
 set(CMAKE_INSTALL_RPATH "$\{ORIGIN\}")
@@ -22,7 +23,7 @@ else()
       add_compile_options(-mavx)
     else()
       set(TARGET_TRIPLE aarch64-linux-android)
-      add_compile_options(-mfpu=neon)
+      find_library(ANDROID_LOG_LIB log)
     endif()
 endif()
 
@@ -38,5 +39,8 @@ target_include_directories(${TARGET}
   PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/"
   PRIVATE "${LIBRARY_DIR}/include/")
 
-target_link_libraries(${TARGET}
-  PRIVATE chipmunk)
+if(WIN32)
+  target_link_libraries(${TARGET} PUBLIC chipmunk_static)
+else()
+  target_link_libraries(${TARGET} PUBLIC chipmunk_static PRIVATE ${ANDROID_LOG_LIB})
+endif()

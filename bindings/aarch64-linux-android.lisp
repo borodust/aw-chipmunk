@@ -25,7 +25,7 @@
 
 (defparameter %chipmunk::+version-release+ 3)
 
-(defparameter %chipmunk::+wildcard-collision-type+ -1)
+(defparameter %chipmunk::+wildcard-collision-type+ 4294967295)
 
 (defparameter %chipmunk::+false+ 0)
 
@@ -213,7 +213,7 @@
 
 (declaim (inline %chipmunk::arbiter-get-contact-point-set))
 
-(cffi:defcfun ("__claw__cpArbiterGetContactPointSet"
+(cffi:defcfun ("__claw_cpArbiterGetContactPointSet"
                %chipmunk::arbiter-get-contact-point-set)
               (claw-utils:claw-pointer %chipmunk::contact-point-set)
               (%chipmunk::%%claw-result-
@@ -247,7 +247,7 @@
 
 (declaim (inline %chipmunk::arbiter-get-normal))
 
-(cffi:defcfun ("__claw__cpArbiterGetNormal"
+(cffi:defcfun ("__claw_cpArbiterGetNormal"
                %chipmunk::arbiter-get-normal)
               (claw-utils:claw-pointer %chipmunk::vect)
               (%chipmunk::%%claw-result-
@@ -257,7 +257,7 @@
 
 (declaim (inline %chipmunk::arbiter-get-point-a))
 
-(cffi:defcfun ("__claw__cpArbiterGetPointA"
+(cffi:defcfun ("__claw_cpArbiterGetPointA"
                %chipmunk::arbiter-get-point-a)
               (claw-utils:claw-pointer %chipmunk::vect)
               (%chipmunk::%%claw-result-
@@ -268,7 +268,7 @@
 
 (declaim (inline %chipmunk::arbiter-get-point-b))
 
-(cffi:defcfun ("__claw__cpArbiterGetPointB"
+(cffi:defcfun ("__claw_cpArbiterGetPointB"
                %chipmunk::arbiter-get-point-b)
               (claw-utils:claw-pointer %chipmunk::vect)
               (%chipmunk::%%claw-result-
@@ -304,7 +304,7 @@
 
 (declaim (inline %chipmunk::arbiter-get-surface-velocity))
 
-(cffi:defcfun ("__claw__cpArbiterGetSurfaceVelocity"
+(cffi:defcfun ("__claw_cpArbiterGetSurfaceVelocity"
                %chipmunk::arbiter-get-surface-velocity)
               (claw-utils:claw-pointer %chipmunk::vect)
               (%chipmunk::%%claw-result-
@@ -376,7 +376,7 @@
 
 (declaim (inline %chipmunk::arbiter-set-surface-velocity))
 
-(cffi:defcfun ("__claw__cpArbiterSetSurfaceVelocity"
+(cffi:defcfun ("__claw_cpArbiterSetSurfaceVelocity"
                %chipmunk::arbiter-set-surface-velocity)
               :void
               (%chipmunk::arb
@@ -395,7 +395,7 @@
 
 (declaim (inline %chipmunk::arbiter-total-impulse))
 
-(cffi:defcfun ("__claw__cpArbiterTotalImpulse"
+(cffi:defcfun ("__claw_cpArbiterTotalImpulse"
                %chipmunk::arbiter-total-impulse)
               (claw-utils:claw-pointer %chipmunk::vect)
               (%chipmunk::%%claw-result-
@@ -428,8 +428,7 @@
 
 (declaim (inline %chipmunk::area-for-segment))
 
-(cffi:defcfun ("__claw__cpAreaForSegment"
-               %chipmunk::area-for-segment)
+(cffi:defcfun ("__claw_cpAreaForSegment" %chipmunk::area-for-segment)
               %chipmunk::float
               (%chipmunk::a
                (claw-utils:claw-pointer %chipmunk::vect))
@@ -595,7 +594,7 @@
 
 (declaim (inline %chipmunk::body-apply-force-at-local-point))
 
-(cffi:defcfun ("__claw__cpBodyApplyForceAtLocalPoint"
+(cffi:defcfun ("__claw_cpBodyApplyForceAtLocalPoint"
                %chipmunk::body-apply-force-at-local-point)
               :void
               (%chipmunk::body
@@ -607,7 +606,7 @@
 
 (declaim (inline %chipmunk::body-apply-force-at-world-point))
 
-(cffi:defcfun ("__claw__cpBodyApplyForceAtWorldPoint"
+(cffi:defcfun ("__claw_cpBodyApplyForceAtWorldPoint"
                %chipmunk::body-apply-force-at-world-point)
               :void
               (%chipmunk::body
@@ -619,7 +618,7 @@
 
 (declaim (inline %chipmunk::body-apply-impulse-at-local-point))
 
-(cffi:defcfun ("__claw__cpBodyApplyImpulseAtLocalPoint"
+(cffi:defcfun ("__claw_cpBodyApplyImpulseAtLocalPoint"
                %chipmunk::body-apply-impulse-at-local-point)
               :void
               (%chipmunk::body
@@ -631,7 +630,7 @@
 
 (declaim (inline %chipmunk::body-apply-impulse-at-world-point))
 
-(cffi:defcfun ("__claw__cpBodyApplyImpulseAtWorldPoint"
+(cffi:defcfun ("__claw_cpBodyApplyImpulseAtWorldPoint"
                %chipmunk::body-apply-impulse-at-world-point)
               :void
               (%chipmunk::body
@@ -660,14 +659,6 @@
               (%chipmunk::func %chipmunk::body-arbiter-iterator-func)
               (%chipmunk::data (claw-utils:claw-pointer :void)))
 
-(declaim (inline %chipmunk::body-each-arbiter-b))
-
-(cffi:defcfun ("cpBodyEachArbiter_b" %chipmunk::body-each-arbiter-b)
-              :void
-              (%chipmunk::body
-               (claw-utils:claw-pointer %chipmunk::body))
-              (%chipmunk::block (claw-utils:claw-pointer :void)))
-
 (cffi:defctype %chipmunk::body-constraint-iterator-func
                (claw-utils:claw-pointer :void))
 
@@ -682,15 +673,6 @@
                %chipmunk::body-constraint-iterator-func)
               (%chipmunk::data (claw-utils:claw-pointer :void)))
 
-(declaim (inline %chipmunk::body-each-constraint-b))
-
-(cffi:defcfun ("cpBodyEachConstraint_b"
-               %chipmunk::body-each-constraint-b)
-              :void
-              (%chipmunk::body
-               (claw-utils:claw-pointer %chipmunk::body))
-              (%chipmunk::block (claw-utils:claw-pointer :void)))
-
 (cffi:defctype %chipmunk::body-shape-iterator-func
                (claw-utils:claw-pointer :void))
 
@@ -702,14 +684,6 @@
                (claw-utils:claw-pointer %chipmunk::body))
               (%chipmunk::func %chipmunk::body-shape-iterator-func)
               (%chipmunk::data (claw-utils:claw-pointer :void)))
-
-(declaim (inline %chipmunk::body-each-shape-b))
-
-(cffi:defcfun ("cpBodyEachShape_b" %chipmunk::body-each-shape-b)
-              :void
-              (%chipmunk::body
-               (claw-utils:claw-pointer %chipmunk::body))
-              (%chipmunk::block (claw-utils:claw-pointer :void)))
 
 (declaim (inline %chipmunk::body-free))
 
@@ -735,7 +709,7 @@
 
 (declaim (inline %chipmunk::body-get-center-of-gravity))
 
-(cffi:defcfun ("__claw__cpBodyGetCenterOfGravity"
+(cffi:defcfun ("__claw_cpBodyGetCenterOfGravity"
                %chipmunk::body-get-center-of-gravity)
               (claw-utils:claw-pointer %chipmunk::vect)
               (%chipmunk::%%claw-result-
@@ -745,7 +719,7 @@
 
 (declaim (inline %chipmunk::body-get-force))
 
-(cffi:defcfun ("__claw__cpBodyGetForce" %chipmunk::body-get-force)
+(cffi:defcfun ("__claw_cpBodyGetForce" %chipmunk::body-get-force)
               (claw-utils:claw-pointer %chipmunk::vect)
               (%chipmunk::%%claw-result-
                (claw-utils:claw-pointer %chipmunk::vect))
@@ -768,7 +742,7 @@
 
 (declaim (inline %chipmunk::body-get-position))
 
-(cffi:defcfun ("__claw__cpBodyGetPosition"
+(cffi:defcfun ("__claw_cpBodyGetPosition"
                %chipmunk::body-get-position)
               (claw-utils:claw-pointer %chipmunk::vect)
               (%chipmunk::%%claw-result-
@@ -778,7 +752,7 @@
 
 (declaim (inline %chipmunk::body-get-rotation))
 
-(cffi:defcfun ("__claw__cpBodyGetRotation"
+(cffi:defcfun ("__claw_cpBodyGetRotation"
                %chipmunk::body-get-rotation)
               (claw-utils:claw-pointer %chipmunk::vect)
               (%chipmunk::%%claw-result-
@@ -818,7 +792,7 @@
 
 (declaim (inline %chipmunk::body-get-velocity))
 
-(cffi:defcfun ("__claw__cpBodyGetVelocity"
+(cffi:defcfun ("__claw_cpBodyGetVelocity"
                %chipmunk::body-get-velocity)
               (claw-utils:claw-pointer %chipmunk::vect)
               (%chipmunk::%%claw-result-
@@ -828,7 +802,7 @@
 
 (declaim (inline %chipmunk::body-get-velocity-at-local-point))
 
-(cffi:defcfun ("__claw__cpBodyGetVelocityAtLocalPoint"
+(cffi:defcfun ("__claw_cpBodyGetVelocityAtLocalPoint"
                %chipmunk::body-get-velocity-at-local-point)
               (claw-utils:claw-pointer %chipmunk::vect)
               (%chipmunk::%%claw-result-
@@ -840,7 +814,7 @@
 
 (declaim (inline %chipmunk::body-get-velocity-at-world-point))
 
-(cffi:defcfun ("__claw__cpBodyGetVelocityAtWorldPoint"
+(cffi:defcfun ("__claw_cpBodyGetVelocityAtWorldPoint"
                %chipmunk::body-get-velocity-at-world-point)
               (claw-utils:claw-pointer %chipmunk::vect)
               (%chipmunk::%%claw-result-
@@ -875,7 +849,7 @@
 
 (declaim (inline %chipmunk::body-local-to-world))
 
-(cffi:defcfun ("__claw__cpBodyLocalToWorld"
+(cffi:defcfun ("__claw_cpBodyLocalToWorld"
                %chipmunk::body-local-to-world)
               (claw-utils:claw-pointer %chipmunk::vect)
               (%chipmunk::%%claw-result-
@@ -921,7 +895,7 @@
 
 (declaim (inline %chipmunk::body-set-center-of-gravity))
 
-(cffi:defcfun ("__claw__cpBodySetCenterOfGravity"
+(cffi:defcfun ("__claw_cpBodySetCenterOfGravity"
                %chipmunk::body-set-center-of-gravity)
               :void
               (%chipmunk::body
@@ -931,7 +905,7 @@
 
 (declaim (inline %chipmunk::body-set-force))
 
-(cffi:defcfun ("__claw__cpBodySetForce" %chipmunk::body-set-force)
+(cffi:defcfun ("__claw_cpBodySetForce" %chipmunk::body-set-force)
               :void
               (%chipmunk::body
                (claw-utils:claw-pointer %chipmunk::body))
@@ -956,7 +930,7 @@
 
 (declaim (inline %chipmunk::body-set-position))
 
-(cffi:defcfun ("__claw__cpBodySetPosition"
+(cffi:defcfun ("__claw_cpBodySetPosition"
                %chipmunk::body-set-position)
               :void
               (%chipmunk::body
@@ -1003,7 +977,7 @@
 
 (declaim (inline %chipmunk::body-set-velocity))
 
-(cffi:defcfun ("__claw__cpBodySetVelocity"
+(cffi:defcfun ("__claw_cpBodySetVelocity"
                %chipmunk::body-set-velocity)
               :void
               (%chipmunk::body
@@ -1052,7 +1026,7 @@
 
 (declaim (inline %chipmunk::body-update-velocity))
 
-(cffi:defcfun ("__claw__cpBodyUpdateVelocity"
+(cffi:defcfun ("__claw_cpBodyUpdateVelocity"
                %chipmunk::body-update-velocity)
               :void
               (%chipmunk::body
@@ -1064,7 +1038,7 @@
 
 (declaim (inline %chipmunk::body-world-to-local))
 
-(cffi:defcfun ("__claw__cpBodyWorldToLocal"
+(cffi:defcfun ("__claw_cpBodyWorldToLocal"
                %chipmunk::body-world-to-local)
               (claw-utils:claw-pointer %chipmunk::vect)
               (%chipmunk::%%claw-result-
@@ -1100,7 +1074,7 @@
 
 (declaim (inline %chipmunk::box-shape-init2))
 
-(cffi:defcfun ("__claw__cpBoxShapeInit2" %chipmunk::box-shape-init2)
+(cffi:defcfun ("__claw_cpBoxShapeInit2" %chipmunk::box-shape-init2)
               (claw-utils:claw-pointer %chipmunk::poly-shape)
               (%chipmunk::poly
                (claw-utils:claw-pointer %chipmunk::poly-shape))
@@ -1122,7 +1096,7 @@
 
 (declaim (inline %chipmunk::box-shape-new2))
 
-(cffi:defcfun ("__claw__cpBoxShapeNew2" %chipmunk::box-shape-new2)
+(cffi:defcfun ("__claw_cpBoxShapeNew2" %chipmunk::box-shape-new2)
               (claw-utils:claw-pointer %chipmunk::shape)
               (%chipmunk::body
                (claw-utils:claw-pointer %chipmunk::body))
@@ -1132,7 +1106,7 @@
 
 (declaim (inline %chipmunk::centroid-for-poly))
 
-(cffi:defcfun ("__claw__cpCentroidForPoly"
+(cffi:defcfun ("__claw_cpCentroidForPoly"
                %chipmunk::centroid-for-poly)
               (claw-utils:claw-pointer %chipmunk::vect)
               (%chipmunk::%%claw-result-
@@ -1153,7 +1127,7 @@
 
 (declaim (inline %chipmunk::circle-shape-get-offset))
 
-(cffi:defcfun ("__claw__cpCircleShapeGetOffset"
+(cffi:defcfun ("__claw_cpCircleShapeGetOffset"
                %chipmunk::circle-shape-get-offset)
               (claw-utils:claw-pointer %chipmunk::vect)
               (%chipmunk::%%claw-result-
@@ -1171,7 +1145,7 @@
 
 (declaim (inline %chipmunk::circle-shape-init))
 
-(cffi:defcfun ("__claw__cpCircleShapeInit"
+(cffi:defcfun ("__claw_cpCircleShapeInit"
                %chipmunk::circle-shape-init)
               (claw-utils:claw-pointer %chipmunk::circle-shape)
               (%chipmunk::circle
@@ -1184,8 +1158,7 @@
 
 (declaim (inline %chipmunk::circle-shape-new))
 
-(cffi:defcfun ("__claw__cpCircleShapeNew"
-               %chipmunk::circle-shape-new)
+(cffi:defcfun ("__claw_cpCircleShapeNew" %chipmunk::circle-shape-new)
               (claw-utils:claw-pointer %chipmunk::shape)
               (%chipmunk::body
                (claw-utils:claw-pointer %chipmunk::body))
@@ -1590,7 +1563,7 @@
 
 (declaim (inline %chipmunk::damped-spring-get-anchor-a))
 
-(cffi:defcfun ("__claw__cpDampedSpringGetAnchorA"
+(cffi:defcfun ("__claw_cpDampedSpringGetAnchorA"
                %chipmunk::damped-spring-get-anchor-a)
               (claw-utils:claw-pointer %chipmunk::vect)
               (%chipmunk::%%claw-result-
@@ -1600,7 +1573,7 @@
 
 (declaim (inline %chipmunk::damped-spring-get-anchor-b))
 
-(cffi:defcfun ("__claw__cpDampedSpringGetAnchorB"
+(cffi:defcfun ("__claw_cpDampedSpringGetAnchorB"
                %chipmunk::damped-spring-get-anchor-b)
               (claw-utils:claw-pointer %chipmunk::vect)
               (%chipmunk::%%claw-result-
@@ -1645,7 +1618,7 @@
 
 (declaim (inline %chipmunk::damped-spring-init))
 
-(cffi:defcfun ("__claw__cpDampedSpringInit"
+(cffi:defcfun ("__claw_cpDampedSpringInit"
                %chipmunk::damped-spring-init)
               (claw-utils:claw-pointer %chipmunk::damped-spring)
               (%chipmunk::joint
@@ -1664,7 +1637,7 @@
 
 (declaim (inline %chipmunk::damped-spring-new))
 
-(cffi:defcfun ("__claw__cpDampedSpringNew"
+(cffi:defcfun ("__claw_cpDampedSpringNew"
                %chipmunk::damped-spring-new)
               (claw-utils:claw-pointer %chipmunk::constraint)
               (%chipmunk::a
@@ -1681,7 +1654,7 @@
 
 (declaim (inline %chipmunk::damped-spring-set-anchor-a))
 
-(cffi:defcfun ("__claw__cpDampedSpringSetAnchorA"
+(cffi:defcfun ("__claw_cpDampedSpringSetAnchorA"
                %chipmunk::damped-spring-set-anchor-a)
               :void
               (%chipmunk::constraint
@@ -1691,7 +1664,7 @@
 
 (declaim (inline %chipmunk::damped-spring-set-anchor-b))
 
-(cffi:defcfun ("__claw__cpDampedSpringSetAnchorB"
+(cffi:defcfun ("__claw_cpDampedSpringSetAnchorB"
                %chipmunk::damped-spring-set-anchor-b)
               :void
               (%chipmunk::constraint
@@ -1811,7 +1784,7 @@
 
 (declaim (inline %chipmunk::groove-joint-get-anchor-b))
 
-(cffi:defcfun ("__claw__cpGrooveJointGetAnchorB"
+(cffi:defcfun ("__claw_cpGrooveJointGetAnchorB"
                %chipmunk::groove-joint-get-anchor-b)
               (claw-utils:claw-pointer %chipmunk::vect)
               (%chipmunk::%%claw-result-
@@ -1821,7 +1794,7 @@
 
 (declaim (inline %chipmunk::groove-joint-get-groove-a))
 
-(cffi:defcfun ("__claw__cpGrooveJointGetGrooveA"
+(cffi:defcfun ("__claw_cpGrooveJointGetGrooveA"
                %chipmunk::groove-joint-get-groove-a)
               (claw-utils:claw-pointer %chipmunk::vect)
               (%chipmunk::%%claw-result-
@@ -1831,7 +1804,7 @@
 
 (declaim (inline %chipmunk::groove-joint-get-groove-b))
 
-(cffi:defcfun ("__claw__cpGrooveJointGetGrooveB"
+(cffi:defcfun ("__claw_cpGrooveJointGetGrooveB"
                %chipmunk::groove-joint-get-groove-b)
               (claw-utils:claw-pointer %chipmunk::vect)
               (%chipmunk::%%claw-result-
@@ -1841,7 +1814,7 @@
 
 (declaim (inline %chipmunk::groove-joint-init))
 
-(cffi:defcfun ("__claw__cpGrooveJointInit"
+(cffi:defcfun ("__claw_cpGrooveJointInit"
                %chipmunk::groove-joint-init)
               (claw-utils:claw-pointer %chipmunk::groove-joint)
               (%chipmunk::joint
@@ -1859,8 +1832,7 @@
 
 (declaim (inline %chipmunk::groove-joint-new))
 
-(cffi:defcfun ("__claw__cpGrooveJointNew"
-               %chipmunk::groove-joint-new)
+(cffi:defcfun ("__claw_cpGrooveJointNew" %chipmunk::groove-joint-new)
               (claw-utils:claw-pointer %chipmunk::constraint)
               (%chipmunk::a
                (claw-utils:claw-pointer %chipmunk::body))
@@ -1875,7 +1847,7 @@
 
 (declaim (inline %chipmunk::groove-joint-set-anchor-b))
 
-(cffi:defcfun ("__claw__cpGrooveJointSetAnchorB"
+(cffi:defcfun ("__claw_cpGrooveJointSetAnchorB"
                %chipmunk::groove-joint-set-anchor-b)
               :void
               (%chipmunk::constraint
@@ -1885,7 +1857,7 @@
 
 (declaim (inline %chipmunk::groove-joint-set-groove-a))
 
-(cffi:defcfun ("__claw__cpGrooveJointSetGrooveA"
+(cffi:defcfun ("__claw_cpGrooveJointSetGrooveA"
                %chipmunk::groove-joint-set-groove-a)
               :void
               (%chipmunk::constraint
@@ -1895,7 +1867,7 @@
 
 (declaim (inline %chipmunk::groove-joint-set-groove-b))
 
-(cffi:defcfun ("__claw__cpGrooveJointSetGrooveB"
+(cffi:defcfun ("__claw_cpGrooveJointSetGrooveB"
                %chipmunk::groove-joint-set-groove-b)
               :void
               (%chipmunk::constraint
@@ -1925,7 +1897,7 @@
 
 (declaim (inline %chipmunk::moment-for-box2))
 
-(cffi:defcfun ("__claw__cpMomentForBox2" %chipmunk::moment-for-box2)
+(cffi:defcfun ("__claw_cpMomentForBox2" %chipmunk::moment-for-box2)
               %chipmunk::float
               (%chipmunk::m %chipmunk::float)
               (%chipmunk::box
@@ -1933,7 +1905,7 @@
 
 (declaim (inline %chipmunk::moment-for-circle))
 
-(cffi:defcfun ("__claw__cpMomentForCircle"
+(cffi:defcfun ("__claw_cpMomentForCircle"
                %chipmunk::moment-for-circle)
               %chipmunk::float
               (%chipmunk::m %chipmunk::float)
@@ -1944,7 +1916,7 @@
 
 (declaim (inline %chipmunk::moment-for-poly))
 
-(cffi:defcfun ("__claw__cpMomentForPoly" %chipmunk::moment-for-poly)
+(cffi:defcfun ("__claw_cpMomentForPoly" %chipmunk::moment-for-poly)
               %chipmunk::float
               (%chipmunk::m %chipmunk::float)
               (%chipmunk::count :int)
@@ -1956,7 +1928,7 @@
 
 (declaim (inline %chipmunk::moment-for-segment))
 
-(cffi:defcfun ("__claw__cpMomentForSegment"
+(cffi:defcfun ("__claw_cpMomentForSegment"
                %chipmunk::moment-for-segment)
               %chipmunk::float
               (%chipmunk::m %chipmunk::float)
@@ -1977,7 +1949,7 @@
 
 (declaim (inline %chipmunk::pin-joint-get-anchor-a))
 
-(cffi:defcfun ("__claw__cpPinJointGetAnchorA"
+(cffi:defcfun ("__claw_cpPinJointGetAnchorA"
                %chipmunk::pin-joint-get-anchor-a)
               (claw-utils:claw-pointer %chipmunk::vect)
               (%chipmunk::%%claw-result-
@@ -1987,7 +1959,7 @@
 
 (declaim (inline %chipmunk::pin-joint-get-anchor-b))
 
-(cffi:defcfun ("__claw__cpPinJointGetAnchorB"
+(cffi:defcfun ("__claw_cpPinJointGetAnchorB"
                %chipmunk::pin-joint-get-anchor-b)
               (claw-utils:claw-pointer %chipmunk::vect)
               (%chipmunk::%%claw-result-
@@ -2004,7 +1976,7 @@
 
 (declaim (inline %chipmunk::pin-joint-init))
 
-(cffi:defcfun ("__claw__cpPinJointInit" %chipmunk::pin-joint-init)
+(cffi:defcfun ("__claw_cpPinJointInit" %chipmunk::pin-joint-init)
               (claw-utils:claw-pointer %chipmunk::pin-joint)
               (%chipmunk::joint
                (claw-utils:claw-pointer %chipmunk::pin-joint))
@@ -2019,7 +1991,7 @@
 
 (declaim (inline %chipmunk::pin-joint-new))
 
-(cffi:defcfun ("__claw__cpPinJointNew" %chipmunk::pin-joint-new)
+(cffi:defcfun ("__claw_cpPinJointNew" %chipmunk::pin-joint-new)
               (claw-utils:claw-pointer %chipmunk::constraint)
               (%chipmunk::a
                (claw-utils:claw-pointer %chipmunk::body))
@@ -2032,7 +2004,7 @@
 
 (declaim (inline %chipmunk::pin-joint-set-anchor-a))
 
-(cffi:defcfun ("__claw__cpPinJointSetAnchorA"
+(cffi:defcfun ("__claw_cpPinJointSetAnchorA"
                %chipmunk::pin-joint-set-anchor-a)
               :void
               (%chipmunk::constraint
@@ -2042,7 +2014,7 @@
 
 (declaim (inline %chipmunk::pin-joint-set-anchor-b))
 
-(cffi:defcfun ("__claw__cpPinJointSetAnchorB"
+(cffi:defcfun ("__claw_cpPinJointSetAnchorB"
                %chipmunk::pin-joint-set-anchor-b)
               :void
               (%chipmunk::constraint
@@ -2070,7 +2042,7 @@
 
 (declaim (inline %chipmunk::pivot-joint-get-anchor-a))
 
-(cffi:defcfun ("__claw__cpPivotJointGetAnchorA"
+(cffi:defcfun ("__claw_cpPivotJointGetAnchorA"
                %chipmunk::pivot-joint-get-anchor-a)
               (claw-utils:claw-pointer %chipmunk::vect)
               (%chipmunk::%%claw-result-
@@ -2080,7 +2052,7 @@
 
 (declaim (inline %chipmunk::pivot-joint-get-anchor-b))
 
-(cffi:defcfun ("__claw__cpPivotJointGetAnchorB"
+(cffi:defcfun ("__claw_cpPivotJointGetAnchorB"
                %chipmunk::pivot-joint-get-anchor-b)
               (claw-utils:claw-pointer %chipmunk::vect)
               (%chipmunk::%%claw-result-
@@ -2090,8 +2062,7 @@
 
 (declaim (inline %chipmunk::pivot-joint-init))
 
-(cffi:defcfun ("__claw__cpPivotJointInit"
-               %chipmunk::pivot-joint-init)
+(cffi:defcfun ("__claw_cpPivotJointInit" %chipmunk::pivot-joint-init)
               (claw-utils:claw-pointer %chipmunk::pivot-joint)
               (%chipmunk::joint
                (claw-utils:claw-pointer %chipmunk::pivot-joint))
@@ -2106,7 +2077,7 @@
 
 (declaim (inline %chipmunk::pivot-joint-new))
 
-(cffi:defcfun ("__claw__cpPivotJointNew" %chipmunk::pivot-joint-new)
+(cffi:defcfun ("__claw_cpPivotJointNew" %chipmunk::pivot-joint-new)
               (claw-utils:claw-pointer %chipmunk::constraint)
               (%chipmunk::a
                (claw-utils:claw-pointer %chipmunk::body))
@@ -2117,8 +2088,7 @@
 
 (declaim (inline %chipmunk::pivot-joint-new2))
 
-(cffi:defcfun ("__claw__cpPivotJointNew2"
-               %chipmunk::pivot-joint-new2)
+(cffi:defcfun ("__claw_cpPivotJointNew2" %chipmunk::pivot-joint-new2)
               (claw-utils:claw-pointer %chipmunk::constraint)
               (%chipmunk::a
                (claw-utils:claw-pointer %chipmunk::body))
@@ -2131,7 +2101,7 @@
 
 (declaim (inline %chipmunk::pivot-joint-set-anchor-a))
 
-(cffi:defcfun ("__claw__cpPivotJointSetAnchorA"
+(cffi:defcfun ("__claw_cpPivotJointSetAnchorA"
                %chipmunk::pivot-joint-set-anchor-a)
               :void
               (%chipmunk::constraint
@@ -2141,7 +2111,7 @@
 
 (declaim (inline %chipmunk::pivot-joint-set-anchor-b))
 
-(cffi:defcfun ("__claw__cpPivotJointSetAnchorB"
+(cffi:defcfun ("__claw_cpPivotJointSetAnchorB"
                %chipmunk::pivot-joint-set-anchor-b)
               :void
               (%chipmunk::constraint
@@ -2171,7 +2141,7 @@
 
 (declaim (inline %chipmunk::poly-shape-get-vert))
 
-(cffi:defcfun ("__claw__cpPolyShapeGetVert"
+(cffi:defcfun ("__claw_cpPolyShapeGetVert"
                %chipmunk::poly-shape-get-vert)
               (claw-utils:claw-pointer %chipmunk::vect)
               (%chipmunk::%%claw-result-
@@ -2192,7 +2162,7 @@
 
 (declaim (inline %chipmunk::poly-shape-init))
 
-(cffi:defcfun ("__claw__cpPolyShapeInit" %chipmunk::poly-shape-init)
+(cffi:defcfun ("__claw_cpPolyShapeInit" %chipmunk::poly-shape-init)
               (claw-utils:claw-pointer %chipmunk::poly-shape)
               (%chipmunk::poly
                (claw-utils:claw-pointer %chipmunk::poly-shape))
@@ -2220,7 +2190,7 @@
 
 (declaim (inline %chipmunk::poly-shape-new))
 
-(cffi:defcfun ("__claw__cpPolyShapeNew" %chipmunk::poly-shape-new)
+(cffi:defcfun ("__claw_cpPolyShapeNew" %chipmunk::poly-shape-new)
               (claw-utils:claw-pointer %chipmunk::shape)
               (%chipmunk::body
                (claw-utils:claw-pointer %chipmunk::body))
@@ -2411,7 +2381,7 @@
 
 (declaim (inline %chipmunk::segment-shape-get-a))
 
-(cffi:defcfun ("__claw__cpSegmentShapeGetA"
+(cffi:defcfun ("__claw_cpSegmentShapeGetA"
                %chipmunk::segment-shape-get-a)
               (claw-utils:claw-pointer %chipmunk::vect)
               (%chipmunk::%%claw-result-
@@ -2421,7 +2391,7 @@
 
 (declaim (inline %chipmunk::segment-shape-get-b))
 
-(cffi:defcfun ("__claw__cpSegmentShapeGetB"
+(cffi:defcfun ("__claw_cpSegmentShapeGetB"
                %chipmunk::segment-shape-get-b)
               (claw-utils:claw-pointer %chipmunk::vect)
               (%chipmunk::%%claw-result-
@@ -2431,7 +2401,7 @@
 
 (declaim (inline %chipmunk::segment-shape-get-normal))
 
-(cffi:defcfun ("__claw__cpSegmentShapeGetNormal"
+(cffi:defcfun ("__claw_cpSegmentShapeGetNormal"
                %chipmunk::segment-shape-get-normal)
               (claw-utils:claw-pointer %chipmunk::vect)
               (%chipmunk::%%claw-result-
@@ -2449,7 +2419,7 @@
 
 (declaim (inline %chipmunk::segment-shape-init))
 
-(cffi:defcfun ("__claw__cpSegmentShapeInit"
+(cffi:defcfun ("__claw_cpSegmentShapeInit"
                %chipmunk::segment-shape-init)
               (claw-utils:claw-pointer %chipmunk::segment-shape)
               (%chipmunk::seg
@@ -2464,7 +2434,7 @@
 
 (declaim (inline %chipmunk::segment-shape-new))
 
-(cffi:defcfun ("__claw__cpSegmentShapeNew"
+(cffi:defcfun ("__claw_cpSegmentShapeNew"
                %chipmunk::segment-shape-new)
               (claw-utils:claw-pointer %chipmunk::shape)
               (%chipmunk::body
@@ -2477,7 +2447,7 @@
 
 (declaim (inline %chipmunk::segment-shape-set-neighbors))
 
-(cffi:defcfun ("__claw__cpSegmentShapeSetNeighbors"
+(cffi:defcfun ("__claw_cpSegmentShapeSetNeighbors"
                %chipmunk::segment-shape-set-neighbors)
               :void
               (%chipmunk::shape
@@ -2489,7 +2459,7 @@
 
 (declaim (inline %chipmunk::shape-cache-bb))
 
-(cffi:defcfun ("__claw__cpShapeCacheBB" %chipmunk::shape-cache-bb)
+(cffi:defcfun ("__claw_cpShapeCacheBB" %chipmunk::shape-cache-bb)
               (claw-utils:claw-pointer %chipmunk::bb)
               (%chipmunk::%%claw-result-
                (claw-utils:claw-pointer %chipmunk::bb))
@@ -2519,7 +2489,7 @@
 
 (declaim (inline %chipmunk::shape-get-bb))
 
-(cffi:defcfun ("__claw__cpShapeGetBB" %chipmunk::shape-get-bb)
+(cffi:defcfun ("__claw_cpShapeGetBB" %chipmunk::shape-get-bb)
               (claw-utils:claw-pointer %chipmunk::bb)
               (%chipmunk::%%claw-result-
                (claw-utils:claw-pointer %chipmunk::bb))
@@ -2535,7 +2505,7 @@
 
 (declaim (inline %chipmunk::shape-get-center-of-gravity))
 
-(cffi:defcfun ("__claw__cpShapeGetCenterOfGravity"
+(cffi:defcfun ("__claw_cpShapeGetCenterOfGravity"
                %chipmunk::shape-get-center-of-gravity)
               (claw-utils:claw-pointer %chipmunk::vect)
               (%chipmunk::%%claw-result-
@@ -2543,7 +2513,7 @@
               (%chipmunk::shape
                (claw-utils:claw-pointer %chipmunk::shape)))
 
-(cffi:defctype %chipmunk::collision-type :unsigned-long)
+(cffi:defctype %chipmunk::collision-type :unsigned-int)
 
 (declaim (inline %chipmunk::shape-get-collision-type))
 
@@ -2568,22 +2538,21 @@
               (%chipmunk::shape
                (claw-utils:claw-pointer %chipmunk::shape)))
 
-(cffi:defctype %chipmunk::group :unsigned-long)
+(cffi:defctype %chipmunk::group :unsigned-int)
 
 (cffi:defctype %chipmunk::bitmask :unsigned-int)
 
-(cffi:defcstruct (%chipmunk::shape-filter :size 16)
+(cffi:defcstruct (%chipmunk::shape-filter :size 12)
                  (%chipmunk::group %chipmunk::group :offset 0)
-                 (%chipmunk::categories %chipmunk::bitmask :offset 8)
-                 (%chipmunk::mask %chipmunk::bitmask :offset 12))
+                 (%chipmunk::categories %chipmunk::bitmask :offset 4)
+                 (%chipmunk::mask %chipmunk::bitmask :offset 8))
 
 (cffi:defctype %chipmunk::shape-filter
                (:struct %chipmunk::shape-filter))
 
 (declaim (inline %chipmunk::shape-get-filter))
 
-(cffi:defcfun ("__claw__cpShapeGetFilter"
-               %chipmunk::shape-get-filter)
+(cffi:defcfun ("__claw_cpShapeGetFilter" %chipmunk::shape-get-filter)
               (claw-utils:claw-pointer %chipmunk::shape-filter)
               (%chipmunk::%%claw-result-
                (claw-utils:claw-pointer %chipmunk::shape-filter))
@@ -2627,7 +2596,7 @@
 
 (declaim (inline %chipmunk::shape-get-surface-velocity))
 
-(cffi:defcfun ("__claw__cpShapeGetSurfaceVelocity"
+(cffi:defcfun ("__claw_cpShapeGetSurfaceVelocity"
                %chipmunk::shape-get-surface-velocity)
               (claw-utils:claw-pointer %chipmunk::vect)
               (%chipmunk::%%claw-result-
@@ -2655,7 +2624,7 @@
 
 (declaim (inline %chipmunk::shape-point-query))
 
-(cffi:defcfun ("__claw__cpShapePointQuery"
+(cffi:defcfun ("__claw_cpShapePointQuery"
                %chipmunk::shape-point-query)
               %chipmunk::float
               (%chipmunk::shape
@@ -2678,7 +2647,7 @@
 
 (declaim (inline %chipmunk::shape-segment-query))
 
-(cffi:defcfun ("__claw__cpShapeSegmentQuery"
+(cffi:defcfun ("__claw_cpShapeSegmentQuery"
                %chipmunk::shape-segment-query)
               %chipmunk::bool
               (%chipmunk::shape
@@ -2729,8 +2698,7 @@
 
 (declaim (inline %chipmunk::shape-set-filter))
 
-(cffi:defcfun ("__claw__cpShapeSetFilter"
-               %chipmunk::shape-set-filter)
+(cffi:defcfun ("__claw_cpShapeSetFilter" %chipmunk::shape-set-filter)
               :void
               (%chipmunk::shape
                (claw-utils:claw-pointer %chipmunk::shape))
@@ -2763,7 +2731,7 @@
 
 (declaim (inline %chipmunk::shape-set-surface-velocity))
 
-(cffi:defcfun ("__claw__cpShapeSetSurfaceVelocity"
+(cffi:defcfun ("__claw_cpShapeSetSurfaceVelocity"
                %chipmunk::shape-set-surface-velocity)
               :void
               (%chipmunk::shape
@@ -2781,7 +2749,7 @@
 
 (declaim (inline %chipmunk::shape-update))
 
-(cffi:defcfun ("__claw__cpShapeUpdate" %chipmunk::shape-update)
+(cffi:defcfun ("__claw_cpShapeUpdate" %chipmunk::shape-update)
               (claw-utils:claw-pointer %chipmunk::bb)
               (%chipmunk::%%claw-result-
                (claw-utils:claw-pointer %chipmunk::bb))
@@ -2792,7 +2760,7 @@
 
 (declaim (inline %chipmunk::shapes-collide))
 
-(cffi:defcfun ("__claw__cpShapesCollide" %chipmunk::shapes-collide)
+(cffi:defcfun ("__claw_cpShapesCollide" %chipmunk::shapes-collide)
               (claw-utils:claw-pointer %chipmunk::contact-point-set)
               (%chipmunk::%%claw-result-
                (claw-utils:claw-pointer
@@ -2863,7 +2831,7 @@
 
 (declaim (inline %chipmunk::slide-joint-get-anchor-a))
 
-(cffi:defcfun ("__claw__cpSlideJointGetAnchorA"
+(cffi:defcfun ("__claw_cpSlideJointGetAnchorA"
                %chipmunk::slide-joint-get-anchor-a)
               (claw-utils:claw-pointer %chipmunk::vect)
               (%chipmunk::%%claw-result-
@@ -2873,7 +2841,7 @@
 
 (declaim (inline %chipmunk::slide-joint-get-anchor-b))
 
-(cffi:defcfun ("__claw__cpSlideJointGetAnchorB"
+(cffi:defcfun ("__claw_cpSlideJointGetAnchorB"
                %chipmunk::slide-joint-get-anchor-b)
               (claw-utils:claw-pointer %chipmunk::vect)
               (%chipmunk::%%claw-result-
@@ -2897,8 +2865,7 @@
 
 (declaim (inline %chipmunk::slide-joint-init))
 
-(cffi:defcfun ("__claw__cpSlideJointInit"
-               %chipmunk::slide-joint-init)
+(cffi:defcfun ("__claw_cpSlideJointInit" %chipmunk::slide-joint-init)
               (claw-utils:claw-pointer %chipmunk::slide-joint)
               (%chipmunk::joint
                (claw-utils:claw-pointer %chipmunk::slide-joint))
@@ -2915,7 +2882,7 @@
 
 (declaim (inline %chipmunk::slide-joint-new))
 
-(cffi:defcfun ("__claw__cpSlideJointNew" %chipmunk::slide-joint-new)
+(cffi:defcfun ("__claw_cpSlideJointNew" %chipmunk::slide-joint-new)
               (claw-utils:claw-pointer %chipmunk::constraint)
               (%chipmunk::a
                (claw-utils:claw-pointer %chipmunk::body))
@@ -2930,7 +2897,7 @@
 
 (declaim (inline %chipmunk::slide-joint-set-anchor-a))
 
-(cffi:defcfun ("__claw__cpSlideJointSetAnchorA"
+(cffi:defcfun ("__claw_cpSlideJointSetAnchorA"
                %chipmunk::slide-joint-set-anchor-a)
               :void
               (%chipmunk::constraint
@@ -2940,7 +2907,7 @@
 
 (declaim (inline %chipmunk::slide-joint-set-anchor-b))
 
-(cffi:defcfun ("__claw__cpSlideJointSetAnchorB"
+(cffi:defcfun ("__claw_cpSlideJointSetAnchorB"
                %chipmunk::slide-joint-set-anchor-b)
               :void
               (%chipmunk::constraint
@@ -2985,21 +2952,21 @@
 (cffi:defctype %chipmunk::collision-separate-func
                (claw-utils:claw-pointer :void))
 
-(cffi:defcstruct (%chipmunk::collision-handler :size 56)
+(cffi:defcstruct (%chipmunk::collision-handler :size 48)
                  (%chipmunk::type-a %chipmunk::collision-type :offset
                   0)
                  (%chipmunk::type-b %chipmunk::collision-type :offset
-                  8)
+                  4)
                  (%chipmunk::begin-func
-                  %chipmunk::collision-begin-func :offset 16)
+                  %chipmunk::collision-begin-func :offset 8)
                  (%chipmunk::pre-solve-func
-                  %chipmunk::collision-pre-solve-func :offset 24)
+                  %chipmunk::collision-pre-solve-func :offset 16)
                  (%chipmunk::post-solve-func
-                  %chipmunk::collision-post-solve-func :offset 32)
+                  %chipmunk::collision-post-solve-func :offset 24)
                  (%chipmunk::separate-func
-                  %chipmunk::collision-separate-func :offset 40)
+                  %chipmunk::collision-separate-func :offset 32)
                  (%chipmunk::user-data %chipmunk::data-pointer
-                  :offset 48))
+                  :offset 40))
 
 (cffi:defctype %chipmunk::collision-handler
                (:struct %chipmunk::collision-handler))
@@ -3074,7 +3041,7 @@
 
 (declaim (inline %chipmunk::space-bb-query))
 
-(cffi:defcfun ("__claw__cpSpaceBBQuery" %chipmunk::space-bb-query)
+(cffi:defcfun ("__claw_cpSpaceBBQuery" %chipmunk::space-bb-query)
               :void
               (%chipmunk::space
                (claw-utils:claw-pointer %chipmunk::space))
@@ -3083,21 +3050,6 @@
                (claw-utils:claw-pointer %chipmunk::shape-filter))
               (%chipmunk::func %chipmunk::space-bb-query-func)
               (%chipmunk::data (claw-utils:claw-pointer :void)))
-
-(cffi:defctype %chipmunk::space-bb-query-block
-               (claw-utils:claw-pointer :void))
-
-(declaim (inline %chipmunk::space-bb-query-b))
-
-(cffi:defcfun ("__claw__cpSpaceBBQuery_b"
-               %chipmunk::space-bb-query-b)
-              :void
-              (%chipmunk::space
-               (claw-utils:claw-pointer %chipmunk::space))
-              (%chipmunk::bb (claw-utils:claw-pointer %chipmunk::bb))
-              (%chipmunk::filter
-               (claw-utils:claw-pointer %chipmunk::shape-filter))
-              (%chipmunk::block %chipmunk::space-bb-query-block))
 
 (declaim (inline %chipmunk::space-contains-body))
 
@@ -3217,14 +3169,6 @@
               (%chipmunk::func %chipmunk::space-body-iterator-func)
               (%chipmunk::data (claw-utils:claw-pointer :void)))
 
-(declaim (inline %chipmunk::space-each-body-b))
-
-(cffi:defcfun ("cpSpaceEachBody_b" %chipmunk::space-each-body-b)
-              :void
-              (%chipmunk::space
-               (claw-utils:claw-pointer %chipmunk::space))
-              (%chipmunk::block (claw-utils:claw-pointer :void)))
-
 (cffi:defctype %chipmunk::space-constraint-iterator-func
                (claw-utils:claw-pointer :void))
 
@@ -3239,15 +3183,6 @@
                %chipmunk::space-constraint-iterator-func)
               (%chipmunk::data (claw-utils:claw-pointer :void)))
 
-(declaim (inline %chipmunk::space-each-constraint-b))
-
-(cffi:defcfun ("cpSpaceEachConstraint_b"
-               %chipmunk::space-each-constraint-b)
-              :void
-              (%chipmunk::space
-               (claw-utils:claw-pointer %chipmunk::space))
-              (%chipmunk::block (claw-utils:claw-pointer :void)))
-
 (cffi:defctype %chipmunk::space-shape-iterator-func
                (claw-utils:claw-pointer :void))
 
@@ -3259,14 +3194,6 @@
                (claw-utils:claw-pointer %chipmunk::space))
               (%chipmunk::func %chipmunk::space-shape-iterator-func)
               (%chipmunk::data (claw-utils:claw-pointer :void)))
-
-(declaim (inline %chipmunk::space-each-shape-b))
-
-(cffi:defcfun ("cpSpaceEachShape_b" %chipmunk::space-each-shape-b)
-              :void
-              (%chipmunk::space
-               (claw-utils:claw-pointer %chipmunk::space))
-              (%chipmunk::block (claw-utils:claw-pointer :void)))
 
 (declaim (inline %chipmunk::space-free))
 
@@ -3318,7 +3245,7 @@
 
 (declaim (inline %chipmunk::space-get-gravity))
 
-(cffi:defcfun ("__claw__cpSpaceGetGravity"
+(cffi:defcfun ("__claw_cpSpaceGetGravity"
                %chipmunk::space-get-gravity)
               (claw-utils:claw-pointer %chipmunk::vect)
               (%chipmunk::%%claw-result-
@@ -3429,7 +3356,7 @@
 
 (declaim (inline %chipmunk::space-point-query))
 
-(cffi:defcfun ("__claw__cpSpacePointQuery"
+(cffi:defcfun ("__claw_cpSpacePointQuery"
                %chipmunk::space-point-query)
               :void
               (%chipmunk::space
@@ -3444,7 +3371,7 @@
 
 (declaim (inline %chipmunk::space-point-query-nearest))
 
-(cffi:defcfun ("__claw__cpSpacePointQueryNearest"
+(cffi:defcfun ("__claw_cpSpacePointQueryNearest"
                %chipmunk::space-point-query-nearest)
               (claw-utils:claw-pointer %chipmunk::shape)
               (%chipmunk::space
@@ -3456,23 +3383,6 @@
                (claw-utils:claw-pointer %chipmunk::shape-filter))
               (%chipmunk::out
                (claw-utils:claw-pointer %chipmunk::point-query-info)))
-
-(cffi:defctype %chipmunk::space-point-query-block
-               (claw-utils:claw-pointer :void))
-
-(declaim (inline %chipmunk::space-point-query-b))
-
-(cffi:defcfun ("__claw__cpSpacePointQuery_b"
-               %chipmunk::space-point-query-b)
-              :void
-              (%chipmunk::space
-               (claw-utils:claw-pointer %chipmunk::space))
-              (%chipmunk::point
-               (claw-utils:claw-pointer %chipmunk::vect))
-              (%chipmunk::max-distance %chipmunk::float)
-              (%chipmunk::filter
-               (claw-utils:claw-pointer %chipmunk::shape-filter))
-              (%chipmunk::block %chipmunk::space-point-query-block))
 
 (declaim (inline %chipmunk::space-reindex-shape))
 
@@ -3534,7 +3444,7 @@
 
 (declaim (inline %chipmunk::space-segment-query))
 
-(cffi:defcfun ("__claw__cpSpaceSegmentQuery"
+(cffi:defcfun ("__claw_cpSpaceSegmentQuery"
                %chipmunk::space-segment-query)
               :void
               (%chipmunk::space
@@ -3551,7 +3461,7 @@
 
 (declaim (inline %chipmunk::space-segment-query-first))
 
-(cffi:defcfun ("__claw__cpSpaceSegmentQueryFirst"
+(cffi:defcfun ("__claw_cpSpaceSegmentQueryFirst"
                %chipmunk::space-segment-query-first)
               (claw-utils:claw-pointer %chipmunk::shape)
               (%chipmunk::space
@@ -3566,25 +3476,6 @@
               (%chipmunk::out
                (claw-utils:claw-pointer
                 %chipmunk::segment-query-info)))
-
-(cffi:defctype %chipmunk::space-segment-query-block
-               (claw-utils:claw-pointer :void))
-
-(declaim (inline %chipmunk::space-segment-query-b))
-
-(cffi:defcfun ("__claw__cpSpaceSegmentQuery_b"
-               %chipmunk::space-segment-query-b)
-              :void
-              (%chipmunk::space
-               (claw-utils:claw-pointer %chipmunk::space))
-              (%chipmunk::start
-               (claw-utils:claw-pointer %chipmunk::vect))
-              (%chipmunk::end
-               (claw-utils:claw-pointer %chipmunk::vect))
-              (%chipmunk::radius %chipmunk::float)
-              (%chipmunk::filter
-               (claw-utils:claw-pointer %chipmunk::shape-filter))
-              (%chipmunk::block %chipmunk::space-segment-query-block))
 
 (declaim (inline %chipmunk::space-set-collision-bias))
 
@@ -3623,7 +3514,7 @@
 
 (declaim (inline %chipmunk::space-set-gravity))
 
-(cffi:defcfun ("__claw__cpSpaceSetGravity"
+(cffi:defcfun ("__claw_cpSpaceSetGravity"
                %chipmunk::space-set-gravity)
               :void
               (%chipmunk::space
@@ -3679,19 +3570,6 @@
                (claw-utils:claw-pointer %chipmunk::shape))
               (%chipmunk::func %chipmunk::space-shape-query-func)
               (%chipmunk::data (claw-utils:claw-pointer :void)))
-
-(cffi:defctype %chipmunk::space-shape-query-block
-               (claw-utils:claw-pointer :void))
-
-(declaim (inline %chipmunk::space-shape-query-b))
-
-(cffi:defcfun ("cpSpaceShapeQuery_b" %chipmunk::space-shape-query-b)
-              %chipmunk::bool
-              (%chipmunk::space
-               (claw-utils:claw-pointer %chipmunk::space))
-              (%chipmunk::shape
-               (claw-utils:claw-pointer %chipmunk::shape))
-              (%chipmunk::block %chipmunk::space-shape-query-block))
 
 (declaim (inline %chipmunk::space-step))
 
@@ -3788,7 +3666,7 @@
 
 (cffi:defctype %chipmunk::collision-id :unsigned-int)
 
-(cffi:defctype %chipmunk::hash-value :unsigned-long)
+(cffi:defctype %chipmunk::hash-value :unsigned-int)
 
 (cffi:defctype %chipmunk::mat2x2 (:struct %chipmunk::mat2x2))
 
@@ -3816,7 +3694,7 @@
   (export '%chipmunk::space-remove-constraint :%chipmunk)
   (export '%chipmunk::space-debug-draw-color-for-shape-impl
           :%chipmunk)
-  (export '%chipmunk::body-each-arbiter-b :%chipmunk)
+  (export '%chipmunk::space-get-current-time-step :%chipmunk)
   (export '%chipmunk::pin-joint-init :%chipmunk)
   (export '%chipmunk::bb-tree-set-velocity-func :%chipmunk)
   (export '%chipmunk::body-get-angle :%chipmunk)
@@ -3824,7 +3702,6 @@
   (export '%chipmunk::shape-set-mass :%chipmunk)
   (export '%chipmunk::shape-get-surface-velocity :%chipmunk)
   (export '%chipmunk::collision-handler :%chipmunk)
-  (export '%chipmunk::space-get-current-time-step :%chipmunk)
   (export '%chipmunk::damped-rotary-spring-get-stiffness :%chipmunk)
   (export '%chipmunk::constraint-set-error-bias :%chipmunk)
   (export '%chipmunk::damped-spring-get-damping :%chipmunk)
@@ -3833,7 +3710,6 @@
   (export '%chipmunk::+max-contacts-per-arbiter+ :%chipmunk)
   (export '%chipmunk::space-add-default-collision-handler :%chipmunk)
   (export '%chipmunk::rotary-limit-joint-alloc :%chipmunk)
-  (export '%chipmunk::space-shape-query-b :%chipmunk)
   (export '%chipmunk::reindex-object :%chipmunk)
   (export '%chipmunk::spatial-index-destroy-impl :%chipmunk)
   (export '%chipmunk::segment-shape-get-a :%chipmunk)
@@ -3875,10 +3751,9 @@
   (export '%chipmunk::circle-shape-alloc :%chipmunk)
   (export '%chipmunk::constraint :%chipmunk)
   (export '%chipmunk::arbiter-get-restitution :%chipmunk)
-  (export '%chipmunk::body-each-constraint-b :%chipmunk)
   (export '%chipmunk::rotary-limit-joint-new :%chipmunk)
   (export '%chipmunk::tx :%chipmunk)
-  (export '%chipmunk::space-each-constraint-b :%chipmunk)
+  (export '%chipmunk::space-new :%chipmunk)
   (export '%chipmunk::+use-doubles+ :%chipmunk)
   (export '%chipmunk::pivot-joint-set-anchor-b :%chipmunk)
   (export '%chipmunk::constraint-get-user-data :%chipmunk)
@@ -3897,8 +3772,7 @@
   (export '%chipmunk::circle-shape-init :%chipmunk)
   (export '%chipmunk::arbiter-get-user-data :%chipmunk)
   (export '%chipmunk::sweep1d-init :%chipmunk)
-  (export '%chipmunk::draw-segment :%chipmunk)
-  (export '%chipmunk::space-new :%chipmunk)
+  (export '%chipmunk::space-shape-iterator-func :%chipmunk)
   (export '%chipmunk::body-new-kinematic :%chipmunk)
   (export '%chipmunk::bb :%chipmunk)
   (export '%chipmunk::spatial-index-class :%chipmunk)
@@ -3912,6 +3786,7 @@
   (export '%chipmunk::body-get-position :%chipmunk)
   (export '%chipmunk::space-add-post-step-callback :%chipmunk)
   (export '%chipmunk::body-apply-force-at-world-point :%chipmunk)
+  (export '%chipmunk::draw-segment :%chipmunk)
   (export '%chipmunk::arbiter-total-ke :%chipmunk)
   (export '%chipmunk::user-data :%chipmunk)
   (export '%chipmunk::damped-rotary-spring-set-spring-torque-func
@@ -3920,7 +3795,6 @@
   (export '%chipmunk::klass :%chipmunk)
   (export '%chipmunk::bbfunc :%chipmunk)
   (export '%chipmunk::space-bb-query-func :%chipmunk)
-  (export '%chipmunk::space-shape-iterator-func :%chipmunk)
   (export '%chipmunk::damped-rotary-spring-set-rest-angle :%chipmunk)
   (export '%chipmunk::ratchet-joint :%chipmunk)
   (export '%chipmunk::sweep1d-new :%chipmunk)
@@ -3939,7 +3813,6 @@
   (export '%chipmunk::damped-spring-get-anchor-b :%chipmunk)
   (export '%chipmunk::damped-spring-set-damping :%chipmunk)
   (export '%chipmunk::gear-joint-new :%chipmunk)
-  (export '%chipmunk::space-shape-query-block :%chipmunk)
   (export '%chipmunk::space-debug-draw-polygon-impl :%chipmunk)
   (export '%chipmunk::gear-joint-set-phase :%chipmunk)
   (export '%chipmunk::rotary-limit-joint-get-max :%chipmunk)
@@ -3988,7 +3861,7 @@
   (export '%chipmunk::constraint-free :%chipmunk)
   (export '%chipmunk::draw-polygon :%chipmunk)
   (export '%chipmunk::reindex :%chipmunk)
-  (export '%chipmunk::body-each-shape-b :%chipmunk)
+  (export '%chipmunk::space-hash-init :%chipmunk)
   (export '%chipmunk::pin-joint-alloc :%chipmunk)
   (export '%chipmunk::body-free :%chipmunk)
   (export '%chipmunk::constraint-is-simple-motor :%chipmunk)
@@ -4022,7 +3895,6 @@
   (export '%chipmunk::*version-string* :%chipmunk)
   (export '%chipmunk::shape-update :%chipmunk)
   (export '%chipmunk::space-get-gravity :%chipmunk)
-  (export '%chipmunk::space-each-body-b :%chipmunk)
   (export '%chipmunk::body-get-angular-velocity :%chipmunk)
   (export '%chipmunk::space-contains-constraint :%chipmunk)
   (export '%chipmunk::area-for-poly :%chipmunk)
@@ -4031,7 +3903,6 @@
   (export '%chipmunk::+realloc+ :%chipmunk)
   (export '%chipmunk::poly-shape-new-raw :%chipmunk)
   (export '%chipmunk::box-shape-new2 :%chipmunk)
-  (export '%chipmunk::space-hash-init :%chipmunk)
   (export '%chipmunk::shape-outline-color :%chipmunk)
   (export '%chipmunk::x :%chipmunk)
   (export '%chipmunk::space-each-constraint :%chipmunk)
@@ -4060,7 +3931,7 @@
   (export '%chipmunk::box-shape-init :%chipmunk)
   (export '%chipmunk::points :%chipmunk)
   (export '%chipmunk::constraint-get-impulse :%chipmunk)
-  (export '%chipmunk::damped-spring-alloc :%chipmunk)
+  (export '%chipmunk::space-constraint-iterator-func :%chipmunk)
   (export '%chipmunk::space-segment-query-func :%chipmunk)
   (export '%chipmunk::space-remove-body :%chipmunk)
   (export '%chipmunk::space-get-idle-speed-threshold :%chipmunk)
@@ -4076,17 +3947,17 @@
   (export '%chipmunk::constraint-set-user-data :%chipmunk)
   (export '%chipmunk::body-constraint-iterator-func :%chipmunk)
   (export '%chipmunk::collision-point-color :%chipmunk)
-  (export '%chipmunk::space-constraint-iterator-func :%chipmunk)
   (export '%chipmunk::pin-joint :%chipmunk)
   (export '%chipmunk::spatial-index-segment-query-func :%chipmunk)
   (export '%chipmunk::ratchet-joint-set-phase :%chipmunk)
-  (export '%chipmunk::pin-joint-get-dist :%chipmunk)
+  (export '%chipmunk::damped-spring-alloc :%chipmunk)
   (export '%chipmunk::arbiter-get-depth :%chipmunk)
   (export '%chipmunk::body-kinetic-energy :%chipmunk)
   (export '%chipmunk::hash-set :%chipmunk)
   (export '%chipmunk::static-index :%chipmunk)
   (export '%chipmunk::damped-spring-set-stiffness :%chipmunk)
   (export '%chipmunk::centroid-for-poly :%chipmunk)
+  (export '%chipmunk::pin-joint-get-dist :%chipmunk)
   (export '%chipmunk::slide-joint-alloc :%chipmunk)
   (export '%chipmunk::constraint-is-pivot-joint :%chipmunk)
   (export '%chipmunk::+fsqrt+ :%chipmunk)
@@ -4154,7 +4025,6 @@
   (export '%chipmunk::constraint-get-error-bias :%chipmunk)
   (export '%chipmunk::arbiter-get-point-a :%chipmunk)
   (export '%chipmunk::collision-separate-func :%chipmunk)
-  (export '%chipmunk::space-each-shape-b :%chipmunk)
   (export '%chipmunk::pivot-joint-init :%chipmunk)
   (export '%chipmunk::separate-func :%chipmunk)
   (export '%chipmunk::body-get-velocity-at-world-point :%chipmunk)
@@ -4169,7 +4039,6 @@
   (export '%chipmunk::space-debug-color :%chipmunk)
   (export '%chipmunk::body-activate-static :%chipmunk)
   (export '%chipmunk::constraint-pre-solve-func :%chipmunk)
-  (export '%chipmunk::space-bb-query-block :%chipmunk)
   (export '%chipmunk::body-get-velocity-at-local-point :%chipmunk)
   (export '%chipmunk::sweep1d-alloc :%chipmunk)
   (export '%chipmunk::gear-joint-get-ratio :%chipmunk)
@@ -4181,7 +4050,6 @@
   (export '%chipmunk::collision-begin-func :%chipmunk)
   (export '%chipmunk::space-remove-shape :%chipmunk)
   (export '%chipmunk::shape-get-mass :%chipmunk)
-  (export '%chipmunk::space-point-query-b :%chipmunk)
   (export '%chipmunk::|C:@S@CP-CONTACT-POINT-SET@S@CP-ARBITER.H@4931|
           :%chipmunk)
   (export '%chipmunk::spatial-index-each-impl :%chipmunk)
@@ -4192,7 +4060,6 @@
   (export '%chipmunk::arbiter-set-restitution :%chipmunk)
   (export '%chipmunk::arbiter-call-wildcard-pre-solve-a :%chipmunk)
   (export '%chipmunk::space-reindex-shape :%chipmunk)
-  (export '%chipmunk::space-point-query-block :%chipmunk)
   (export '%chipmunk::arbiter-get-surface-velocity :%chipmunk)
   (export '%chipmunk::simple-motor-set-rate :%chipmunk)
   (export '%chipmunk::segment-shape-alloc :%chipmunk)
@@ -4223,14 +4090,12 @@
   (export '%chipmunk::type-a :%chipmunk)
   (export '%chipmunk::constraint-get-max-force :%chipmunk)
   (export '%chipmunk::simple-motor-joint :%chipmunk)
-  (export '%chipmunk::space-bb-query-b :%chipmunk)
-  (export '%chipmunk::space-segment-query-block :%chipmunk)
+  (export '%chipmunk::space-set-user-data :%chipmunk)
   (export '%chipmunk::groove-joint-get-groove-a :%chipmunk)
   (export '%chipmunk::bb-tree-init :%chipmunk)
   (export '%chipmunk::space-contains-shape :%chipmunk)
   (export '%chipmunk::point-a :%chipmunk)
   (export '%chipmunk::body-get-user-data :%chipmunk)
-  (export '%chipmunk::space-set-user-data :%chipmunk)
   (export '%chipmunk::body-set-torque :%chipmunk)
   (export '%chipmunk::pivot-joint-get-anchor-b :%chipmunk)
   (export '%chipmunk::space-point-query :%chipmunk)
@@ -4241,7 +4106,6 @@
   (export '%chipmunk::+version-minor+ :%chipmunk)
   (export '%chipmunk::poly-shape-init :%chipmunk)
   (export '%chipmunk::body-set-position :%chipmunk)
-  (export '%chipmunk::space-segment-query-b :%chipmunk)
   (export '%chipmunk::space-add-constraint :%chipmunk)
   (export '%chipmunk::space-add-collision-handler :%chipmunk)
   (export '%chipmunk::constraint-get-body-b :%chipmunk)
@@ -4275,12 +4139,12 @@
   (export '%chipmunk::rotary-limit-joint-set-min :%chipmunk)
   (export '%chipmunk::point-b :%chipmunk)
   (export '%chipmunk::+false+ :%chipmunk)
-  (export '%chipmunk::+fp-nan+ :%chipmunk)
+  (export '%chipmunk::space-each-body :%chipmunk)
   (export '%chipmunk::groove-joint-set-groove-b :%chipmunk)
   (export '%chipmunk::+version-major+ :%chipmunk)
-  (export '%chipmunk::space-free :%chipmunk)
+  (export '%chipmunk::+fp-nan+ :%chipmunk)
   (export '%chipmunk::mask :%chipmunk)
-  (export '%chipmunk::space-each-body :%chipmunk)
+  (export '%chipmunk::+fexp+ :%chipmunk)
   (export '%chipmunk::space-reindex-static :%chipmunk)
   (export '%chipmunk::ratchet-joint-alloc :%chipmunk)
   (export '%chipmunk::arbiter-ignore :%chipmunk)
@@ -4296,6 +4160,7 @@
   (export '%chipmunk::space-set-gravity :%chipmunk)
   (export '%chipmunk::shape-segment-query :%chipmunk)
   (export '%chipmunk::body-get-force :%chipmunk)
+  (export '%chipmunk::space-free :%chipmunk)
   (export '%chipmunk::each :%chipmunk)
   (export '%chipmunk::body-position-func :%chipmunk)
   (export '%chipmunk::+export+ :%chipmunk)
@@ -4327,7 +4192,6 @@
   (export '%chipmunk::body :%chipmunk)
   (export '%chipmunk::arbiter-get-normal :%chipmunk)
   (export '%chipmunk::pivot-joint-new :%chipmunk)
-  (export '%chipmunk::+fexp+ :%chipmunk)
   (export '%chipmunk::body-alloc :%chipmunk)
   (export '%chipmunk::damped-spring-get-rest-length :%chipmunk)
   (export '%chipmunk::space-set-collision-bias :%chipmunk)
